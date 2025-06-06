@@ -1,8 +1,13 @@
-// Default: Octaves C3-C5
-notes = ["A", "B", "C", "D", "E", "F", "G"];
-octaves = ["3", "4", "5"];  // Use math.random()?
+import { getOctaves, getNotes, getStaveNotes } from './musicBuilder.js'
 
 
+let notes   = getNotes();
+let octaves = getOctaves(3,5); // Default Octaves C3-C5 
+
+let staveNotes = getStaveNotes(notes, octaves);
+
+// console.log(notes)
+console.log(staveNotes)
 
 
 
