@@ -1,0 +1,33 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgb(55, 45, 92);
+}
+
+#output svg {
+  pointer-events: none;         /* Disables mouse interactions */
+  user-select: none;            /* Prevents text selection */
+}
+
+#output {
+  width: 500px;
+  height: 300px;
+  border: 1px, solid,black;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
