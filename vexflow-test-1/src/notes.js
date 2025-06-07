@@ -1,12 +1,15 @@
-import { getOctaves, getNotes, formatNote, buildStaveNotes } from './util_musicBuilder.js'
-import { Formatter, Renderer, Stave, StaveNote, Voice } from 'vexflow'
+import { getOctaves, getNotes, formatNotes, buildStaveNotes } from './util_musicBuilder.js'
+import { Formatter, Renderer, Stave, Voice } from 'vexflow'
 
 let notes   = getNotes();
 let octaves = getOctaves(4,4); // Default Octaves C3-C5 
 
-let formattedNotes = formatNote(notes, octaves);  // output: ["A/1", "B/4", "G/1", "C/4"]
+let formattedNotes = formatNotes(notes, octaves);  // output: ["A/1", "B/4", "G/1", "C/4"]
 
 let staveNotes = buildStaveNotes("treble", formattedNotes)
+
+const NOTE_COUNT = 4;
+const BEATS = 4;
 // ---------------------------------------------------------------------------------------------
 // Create an SVG renderer and attach it to the DIV element with id="output".
 const div = document.getElementById('output');
@@ -27,7 +30,7 @@ stave.addClef('treble').addTimeSignature('4/4');
 stave.setContext(context).draw();
 // ---------------------------------------------------------------------------------------------
 // Create a voice in 4/4 and add above notes
-const voice = new Voice({ num_beats: 4, beat_value: 4 });
+const voice = new Voice({ num_beats: BEATS, beat_value: BEATS });
 voice.addTickables(staveNotes);
 
 // Format and justify the notes to 350 pixels.
