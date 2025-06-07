@@ -18,11 +18,10 @@ stave.addClef('treble').addTimeSignature('4/4');
 // Connect it to the rendering context and draw!
 stave.setContext(context).draw();
 
-let testNote = "c/5"
 // Create the notes
 const notes = [
     // A quarter-note C.
-    new StaveNote({ keys: [testNote], duration: "q" }),
+    new StaveNote({ keys: ["c/4"], duration: "q", clef: "bass"}),
 
     // A quarter-note D.
     new StaveNote({ keys: ["d/4"], duration: "q" }),
