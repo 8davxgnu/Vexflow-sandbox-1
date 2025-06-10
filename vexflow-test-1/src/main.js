@@ -6,7 +6,8 @@ import {
     generateStave,
     changeStaveNoteColor,
     renderStaveNotes,
-    generateClef
+    generateClef,
+    getEnabledClefs
 } from './util_musicBuilder.js'
 import { Formatter, Renderer, Stave, Voice } from 'vexflow'
 // ---------------------------------------------------------------------------------------------
@@ -30,7 +31,7 @@ let staveNotes;
 let voice;
 let stave;
 let game_running;
-let enabledClefs;  // HARDCODED. Fetch this from user inputs
+let coolDown = 1000;
 const CLEF_OCTAVE_RANGE = {  // Default octave ranges
     treble: [4, 6],
     bass: [2, 4],
@@ -40,6 +41,8 @@ const CLEF_OCTAVE_RANGE = {  // Default octave ranges
 startGame()  // When user clicks "Play"
 function startGame() {
     game_running = true;
+    let enabledClefs = getEnabledClefs();
+    console.log(enabledClefs);
     let cleff = generateClef(enabledClefs);
     const time_signature = '4/4';
     let octaveRange = [4,5]
@@ -87,7 +90,7 @@ window.addEventListener('keydown', function(event) {
         setTimeout(() => {  
             context.clear();    
             startGame();
-        }, 1000);
+        }, coolDown);
         
     }
 });

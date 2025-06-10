@@ -101,3 +101,17 @@ export function generateClef(enabledClefs = ['treble']) {
     return enabledClefs[index]
 }
 
+export function getEnabledClefs() {
+    let enabledClefs = ['treble']
+    // let trebleCheckBox = document.getElementById("trebleCheckbox");
+    let bassCheckbox = document.getElementById("bassCheckbox");
+    let tenorCheckbox = document.getElementById("tenorCheckbox");
+    let altoCheckbox = document.getElementById("altoCheckbox");
+
+    // if (trebleCheckBox.enabled) enabledClefs.push('treble');
+    if (bassCheckbox.checked) enabledClefs.push('bass');
+    if (tenorCheckbox.checked) enabledClefs.push('tenor');
+    if (altoCheckbox.checked) enabledClefs.push('alto');
+
+    return enabledClefs;
+}
