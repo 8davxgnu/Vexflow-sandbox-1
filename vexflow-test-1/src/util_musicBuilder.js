@@ -73,9 +73,9 @@ export function changeStaveNoteColor(staveNotes, index, color = 'black') {
     });
 }
 
-export function renderStaveNotes(cleff, time_signature, context, stave) {
+export function renderStaveNotes(cleff, time_signature, context, stave, octaveRange) {
     let notes   = getNotes(); 
-    let octaves = getOctaves(2,3); // Default Octaves C3-C5 
+    let octaves = getOctaves(octaveRange[0],octaveRange[1]); // Default Octaves C3-C5 
     let formattedNotes = formatNotes(notes, octaves);  // output: ["A/1", "B/4", "G/1", "C/4"]
     let staveNotes = buildStaveNotes(cleff, formattedNotes)
 
@@ -96,4 +96,8 @@ export function renderStaveNotes(cleff, time_signature, context, stave) {
     };
 }
 
-// let answers = notes.map((note) => note.toLowerCase());
+export function generateCleff(enabledClefs = ['treble']) {
+    const index = Math.floor((Math.random) * enabledClefs.length);
+    return enabledClefs[index];
+}
+
