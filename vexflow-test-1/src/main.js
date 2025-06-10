@@ -30,7 +30,12 @@ let staveNotes;
 let voice;
 let stave;
 let game_running;
-let enabledClefs = ['treble', 'bass', 'tenor', 'alto'];  // HARDCODED. Fetch this from user inputs
+let enabledClefs;  // HARDCODED. Fetch this from user inputs
+const CLEF_OCTAVE_RANGE = {  // Default octave ranges
+    treble: [4, 6],
+    bass: [2, 4],
+    alto: [3, 5]
+};
 
 startGame()  // When user clicks "Play"
 function startGame() {

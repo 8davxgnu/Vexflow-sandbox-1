@@ -16,6 +16,10 @@ body {
   background-color: rgb(55, 45, 92);
 }
 
+li {
+  list-style: none;
+}
+
 #output svg {
   pointer-events: none;         /* Disables mouse interactions */
   user-select: none;            /* Prevents text selection */
@@ -34,3 +38,7 @@ body {
   flex-direction: column;
 }
 
+#clefList {
+  display: flex;
+  flex-direction: row;
+}
