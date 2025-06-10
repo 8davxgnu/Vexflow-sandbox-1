@@ -24,8 +24,8 @@ renderer.resize(500, 300);
 const context = renderer.getContext();
 context.setFont('Arial', 10);
 // ---------------------------------------------------------------------------------------------
-
 let currentIndex = 0;
+const time_signature = '4/4';
 let answers;
 let staveNotes;
 let voice;
@@ -38,13 +38,17 @@ const CLEF_OCTAVE_RANGE = {  // Default octave ranges
     alto: [3, 5]
 };
 
-startGame()  // When user clicks "Play"
+// Initial Stave Render
+stave = new Stave(50, 50, 400);
+stave.addTimeSignature(time_signature);
+stave.setContext(context).draw();
+
+// startGame()  // When user clicks "Play"
 function startGame() {
     game_running = true;
     let enabledClefs = getEnabledClefs();
     console.log(enabledClefs);
     let cleff = generateClef(enabledClefs);
-    const time_signature = '4/4';
     let octaveRange = [4,5]
 
     // Create a stave of width 400 at position 
