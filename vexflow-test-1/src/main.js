@@ -1,14 +1,18 @@
 import { 
-    getOctaves, 
-    getNotes, 
-    formatNotes, 
-    buildStaveNotes, 
-    generateStave, 
-    changeStaveNoteColor, 
-    renderStaveNotes 
+    getOctaves,
+    getNotes,
+    formatNotes,
+    buildStaveNotes,
+    generateStave,
+    changeStaveNoteColor,
+    renderStaveNotes,
+    generateClef
 } from './util_musicBuilder.js'
 import { Formatter, Renderer, Stave, Voice } from 'vexflow'
-
+// ---------------------------------------------------------------------------------------------
+/*
+setContext(context).draw()  : context provides note and cleff information and draw draws the notes and cleff
+*/
 // ---------------------------------------------------------------------------------------------
 // Create an SVG renderer and attach it to the DIV element with id="output".
 const div = document.getElementById('output');
@@ -26,11 +30,12 @@ let staveNotes;
 let voice;
 let stave;
 let game_running;
-startGame()
+let enabledClefs = ['treble', 'bass', 'tenor', 'alto'];  // HARDCODED. Fetch this from user inputs
+
+startGame()  // When user clicks "Play"
 function startGame() {
     game_running = true;
-    let cleff = 'treble';
-    // let enabledClefs =  
+    let cleff = generateClef(enabledClefs);
     const time_signature = '4/4';
     let octaveRange = [4,5]
 
@@ -62,7 +67,7 @@ window.addEventListener('keydown', function(event) {
             changeStaveNoteColor(staveNotes, currentIndex, 'red');
             voice.draw(context, stave);
         }
-        
+
         // Move to next note
         currentIndex++;
     }
@@ -74,9 +79,8 @@ window.addEventListener('keydown', function(event) {
         console.log('All notes answered.');
         currentIndex = 0;
         game_running = false
-        setTimeout(() => {    
-            context.clear();
-            stave.setContext(context).draw()
+        setTimeout(() => {  
+            context.clear();    
             startGame();
         }, 1000);
         

@@ -96,8 +96,8 @@ export function renderStaveNotes(cleff, time_signature, context, stave, octaveRa
     };
 }
 
-export function generateCleff(enabledClefs = ['treble']) {
-    const index = Math.floor((Math.random) * enabledClefs.length);
-    return enabledClefs[index];
+export function generateClef(enabledClefs = ['treble']) {
+    const index = Math.floor(Math.random() * enabledClefs.length);
+    return enabledClefs[index]
 }
 
