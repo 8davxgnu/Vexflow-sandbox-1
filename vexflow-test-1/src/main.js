@@ -43,11 +43,29 @@ stave = new Stave(50, 50, 400);
 stave.addTimeSignature(time_signature);
 stave.setContext(context).draw();
 
-// startGame()  // When user clicks "Play"
-function startGame() {
-    game_running = true;
-    let enabledClefs = getEnabledClefs();
+function startNewRound() { 
+    const enabledClefs = getEnabledClefs();
     console.log(enabledClefs);
+
+    if ((enabledClefs.length > 0) && (!game_running)) {
+        game_running = true;
+        context.clear();
+        runGameLogic(enabledClefs);
+    } else if ((enabledClefs == 0) && (game_running)){
+        return;
+    } else {
+        // No clefs selected
+        game_running = false;
+        context.clear();
+        stave = new Stave(50, 50, 400);
+        stave.addTimeSignature(time_signature);
+        stave.setContext(context).draw();
+        console.log("No clefs selected");
+    } 
+}
+
+function runGameLogic(enabledClefs) {
+    context.clear()
     let cleff = generateClef(enabledClefs);
     let octaveRange = [4,5]
 
@@ -62,6 +80,8 @@ function startGame() {
     
 }
 
+document.getElementById('startGameButton').addEventListener('click', startNewRound);
+
 window.addEventListener('keydown', function(event) {
     const userInput = event.key.toLowerCase();
 
@@ -69,32 +89,30 @@ window.addEventListener('keydown', function(event) {
     if (!'abcdefg'.includes(userInput)) return;
     if (game_running) {
         if (userInput === answers[currentIndex]) {
-            console.log("YESS");
-            // Correct
             changeStaveNoteColor(staveNotes, currentIndex, 'green');
             voice.draw(context, stave);
         } else {
-            console.log("NO")
-            // Incorrect
             changeStaveNoteColor(staveNotes, currentIndex, 'red');
             voice.draw(context, stave);
         }
 
         // Move to next note
         currentIndex++;
+
+        // Check if all notes answered
+        if (currentIndex >= answers.length) {
+            console.log('All notes answered.');
+            currentIndex = 0;
+            game_running = false
+            setTimeout(() => {  
+                context.clear();    
+                startNewRound();
+            }, coolDown);
+        
+        }
     }
     else {
         console.log("Game Paused")
     }
 
-    if (currentIndex >= answers.length) {
-        console.log('All notes answered.');
-        currentIndex = 0;
-        game_running = false
-        setTimeout(() => {  
-            context.clear();    
-            startGame();
-        }, coolDown);
-        
-    }
 });
