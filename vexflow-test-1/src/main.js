@@ -33,7 +33,7 @@ let stave;
 let game_running;
 let coolDown = 1000;
 const CLEF_OCTAVE_RANGE = {  // Default octave ranges
-    treble: [4, 6],
+    treble: [4, 5],
     bass: [2, 4],
     alto: [3, 5]
 };
@@ -51,7 +51,7 @@ function startNewRound() {
         game_running = true;
         context.clear();
         runGameLogic(enabledClefs);
-    } else if ((enabledClefs == 0) && (game_running)){
+    } else if (game_running){
         return;
     } else {
         // No clefs selected
@@ -67,7 +67,7 @@ function startNewRound() {
 function runGameLogic(enabledClefs) {
     context.clear()
     let cleff = generateClef(enabledClefs);
-    let octaveRange = [4,5]
+    let octaveRange = CLEF_OCTAVE_RANGE[cleff];
 
     // Create a stave of width 400 at position 
     stave = generateStave(50, 50, 400, cleff, time_signature)
