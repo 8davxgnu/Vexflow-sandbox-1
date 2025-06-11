@@ -35,7 +35,8 @@ let coolDown = 1000;
 const CLEF_OCTAVE_RANGE = {  // Default octave ranges
     treble: [4, 5],
     bass: [2, 4],
-    alto: [3, 5]
+    tenor: [3,4],
+    alto: [3, 4]
 };
 
 // Initial Stave Render
