@@ -46,13 +46,13 @@ stave.setContext(context).draw();
 
 function startNewRound() { 
     const enabledClefs = getEnabledClefs();
-    console.log(enabledClefs);
+    // console.log(enabledClefs);
 
     if ((enabledClefs.length > 0) && (!game_running)) {
         game_running = true;
-        context.clear();
         runGameLogic(enabledClefs);
     } else if (game_running){
+        console.log("Game already running")
         return;
     } else {
         // No clefs selected
@@ -67,6 +67,7 @@ function startNewRound() {
 
 function runGameLogic(enabledClefs) {
     context.clear()
+    currentIndex = 0;
     let cleff = generateClef(enabledClefs);
     let octaveRange = CLEF_OCTAVE_RANGE[cleff];
 
@@ -88,7 +89,7 @@ window.addEventListener('keydown', function(event) {
 
     // Only process if it's a valid note key (a-g)
     if (!'abcdefg'.includes(userInput)) return;
-    if (game_running) {
+    if (currentIndex < answers.length) {
         if (userInput === answers[currentIndex]) {
             changeStaveNoteColor(staveNotes, currentIndex, 'green');
             voice.draw(context, stave);
@@ -102,18 +103,16 @@ window.addEventListener('keydown', function(event) {
 
         // Check if all notes answered
         if (currentIndex >= answers.length) {
-            console.log('All notes answered.');
-            currentIndex = 0;
-            game_running = false
+            console.log("Starting new round.")
             setTimeout(() => {  
-                context.clear();    
+                game_running = false;
                 startNewRound();
             }, coolDown);
         
         }
     }
     else {
-        console.log("Game Paused")
+        console.log("All notes answered.")
     }
 
 });
